@@ -936,7 +936,7 @@ Morebits.string = {
 	},
 	splitWeightedByKeys: function( str, start, end, skip ) {
 		if( start.length !== end.length ) {
-			throw new Error( '起始和结束标记必须等长' );
+			throw new Error( '起始和結束標記必須等長' );
 		}
 		var level = 0;
 		var initial = null;
@@ -947,7 +947,7 @@ Morebits.string = {
 			} else if( typeof skip === 'string' ) {
 				skip = [ skip ];
 			} else {
-				throw new Error( "不适用的跳过参数" );
+				throw new Error( "不適用的跳過參數" );
 			}
 		}
 		for( var i  = 0; i < str.length; ++i ) {
@@ -1202,7 +1202,7 @@ Morebits.wikipedia.namespaces = {
 };
 
 Morebits.wikipedia.namespacesFriendly = {
-	'0':   '（条目）',
+	'0':   '（條目）',
 	'1':   'Talk',
 	'2':   'User',
 	'3':   'User talk',
@@ -1304,7 +1304,7 @@ Morebits.wiki.actionCompleted.event = function() {
 
 Morebits.wiki.actionCompleted.timeOut = ( typeof window.wpActionCompletedTimeOut === 'undefined' ? 5000 : window.wpActionCompletedTimeOut );
 Morebits.wiki.actionCompleted.redirect = null;
-Morebits.wiki.actionCompleted.notice = '动作';
+Morebits.wiki.actionCompleted.notice = '動作';
 Morebits.wiki.actionCompleted.postfix = '已完成';
 
 Morebits.wiki.addCheckpoint = function() {
@@ -1400,7 +1400,7 @@ Morebits.wiki.api.prototype = {
 			function(jqXHR, statusText, errorThrown) {
 				this.statusText = statusText;
 				this.errorThrown = errorThrown; // frequently undefined
-				this.errorText = statusText + '在调用API时发生了错误“' + jqXHR.statusText + '”。';
+				this.errorText = statusText + '在調用API時發生了錯誤「' + jqXHR.statusText + '」。';
 				this.returnError();
 			}
 		);  // the return value should be ignored, unless using callerAjaxParameters with |async: false|
@@ -1621,7 +1621,7 @@ Morebits.wiki.api.prototype = {
 Morebits.wiki.page = function(pageName, currentAction) {
 
 	if (!currentAction) {
-		currentAction = '打开页面“' + pageName + '”';
+		currentAction = '打開頁面「' + pageName + '」';
 	}
 
 	/**
@@ -1827,7 +1827,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 	this.setFollowRedirect = function(followRedirect) {
 		if (ctx.pageLoaded) {
-			ctx.statusElement.error("内部错误：不能在页面加载后修改重定向设置！");
+			ctx.statusElement.error("內部錯誤：不能在頁面加載後修改重定向設置！");
 			return;
 		}
 		ctx.followRedirect = followRedirect;
@@ -1863,7 +1863,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		// Need to be able to do something after the page loads
 		if (!onSuccess) {
-			ctx.statusElement.error("内部错误：未给load()提供onSuccess回调函数！");
+			ctx.statusElement.error("內部錯誤：未給load()提供onSuccess回調函數！");
 			ctx.onLoadFailure(this);
 			return;
 		}
@@ -1894,7 +1894,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			ctx.loadQuery.inprop = 'protection';
 		}
 
-		ctx.loadApi = new Morebits.wiki.api("抓取页面…", ctx.loadQuery, fnLoadSuccess, ctx.statusElement, ctx.onLoadFailure);
+		ctx.loadApi = new Morebits.wiki.api("抓取頁面…", ctx.loadQuery, fnLoadSuccess, ctx.statusElement, ctx.onLoadFailure);
 		ctx.loadApi.setParent(this);
 		ctx.loadApi.post();
 	};
@@ -1906,21 +1906,21 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		ctx.onSaveFailure = onFailure || emptyFunction;
 
 		if (!ctx.pageLoaded) {
-			ctx.statusElement.error("内部错误：试图保存未被加载的页面！");
+			ctx.statusElement.error("內部錯誤：試圖保存未被加載的頁面！");
 			ctx.onSaveFailure(this);
 			return;
 		}
 		if (!ctx.editSummary) {
-			ctx.statusElement.error("内部错误：保存前未设置编辑摘要！");
+			ctx.statusElement.error("內部錯誤：保存前未設置編輯摘要！");
 			ctx.onSaveFailure(this);
 			return;
 		}
 
 		if (ctx.fullyProtected && !ctx.suppressProtectWarning && 
-			!confirm('您即将编辑全保护页面 "' + ctx.pageName +
+			!confirm('您即將編輯全保護頁面 "' + ctx.pageName +
 			(ctx.fullyProtected === 'infinity' ? '（永久）' : ('（到期：' + ctx.fullyProtected + ')')) +
-			'。\n\n点击确定以确定，或点击取消以取消。')) {
-			ctx.statusElement.error("对全保护页面的编辑被取消。");
+			'。\n\n點擊確定以確定，或點擊取消以取消。')) {
+			ctx.statusElement.error("對全保護頁面的編輯被取消。");
 			ctx.onSaveFailure(this);
 			return;
 		}
@@ -1979,7 +1979,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query[ctx.createOption] = '';
 		}
 
-		ctx.saveApi = new Morebits.wiki.api( "保存页面…", query, fnSaveSuccess, ctx.statusElement, fnSaveError);
+		ctx.saveApi = new Morebits.wiki.api( "保存頁面…", query, fnSaveSuccess, ctx.statusElement, fnSaveError);
 		ctx.saveApi.setParent(this);
 		ctx.saveApi.post();
 	};
@@ -2000,7 +2000,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 	this.lookupCreator = function(onSuccess) {
 		if (!onSuccess) {
-			ctx.statusElement.error("内部错误：未给lookupCreator()提供onSuccess回调函数！");
+			ctx.statusElement.error("內部錯誤：未給lookupCreator()提供onSuccess回調函數！");
 			return;
 		}
 		ctx.onLookupCreatorSuccess = onSuccess;
@@ -2018,7 +2018,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.redirects = '';  // follow all redirects
 		}
 
-		ctx.lookupCreatorApi = new Morebits.wiki.api("抓取页面创建者信息", query, fnLookupCreatorSuccess, ctx.statusElement);
+		ctx.lookupCreatorApi = new Morebits.wiki.api("抓取頁面創建者信息", query, fnLookupCreatorSuccess, ctx.statusElement);
 		ctx.lookupCreatorApi.setParent(this);
 		ctx.lookupCreatorApi.post();
 	};
@@ -2035,9 +2035,9 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		if ( rcid ) {
 
-			var patrolstat = new Morebits.status( '标记页面为已巡查' );
+			var patrolstat = new Morebits.status( '標記頁面為已巡查' );
 
-			var wikipedia_api = new Morebits.wiki.api( '进行中…', {
+			var wikipedia_api = new Morebits.wiki.api( '進行中…', {
 				action: 'patrol',
 				rcid: rcid,
 				token: mw.user.tokens.get( 'patrolToken' )
@@ -2053,7 +2053,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		ctx.onSaveFailure = onFailure || emptyFunction;
 
 		if (!ctx.revertOldID) {
-			ctx.statusElement.error("内部错误：回退前未提供修订版本ID！");
+			ctx.statusElement.error("內部錯誤：回退前未提供修訂版本ID！");
 			ctx.onSaveFailure(this);
 			return;
 		}
@@ -2067,12 +2067,12 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		ctx.onMoveFailure = onFailure || emptyFunction;
 
 		if (!ctx.editSummary) {
-			ctx.statusElement.error("内部错误：移动前未提供理由（使用setEditSummary函数）！");
+			ctx.statusElement.error("內部錯誤：移動前未提供理由（使用setEditSummary函數）！");
 			ctx.onMoveFailure(this);
 			return;
 		}
 		if (!ctx.moveDestination) {
-			ctx.statusElement.error("内部错误：移动前未指定目标页面！");
+			ctx.statusElement.error("內部錯誤：移動前未指定目標頁面！");
 			ctx.onMoveFailure(this);
 			return;
 		}
@@ -2090,7 +2090,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.inprop = 'protection';
 		}
 
-		ctx.moveApi = new Morebits.wiki.api("抓取移动令牌…", query, fnProcessMove, ctx.statusElement, ctx.onMoveFailure);
+		ctx.moveApi = new Morebits.wiki.api("抓取移動令牌…", query, fnProcessMove, ctx.statusElement, ctx.onMoveFailure);
 		ctx.moveApi.setParent(this);
 		ctx.moveApi.post();
 	};
@@ -2102,12 +2102,12 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		// if a non-admin tries to do this, don't bother
 		if (!Morebits.userIsInGroup('sysop')) {
-			ctx.statusElement.error("不能删除页面：只有管理员可进行该操作");
+			ctx.statusElement.error("不能刪除頁面：只有管理員可進行該操作");
 			ctx.onDeleteFailure(this);
 			return;
 		}
 		if (!ctx.editSummary) {
-			ctx.statusElement.error("内部错误：删除前未提供理由（使用setEditSummary函数）！");
+			ctx.statusElement.error("內部錯誤：刪除前未提供理由（使用setEditSummary函數）！");
 			ctx.onDeleteFailure(this);
 			return;
 		}
@@ -2123,7 +2123,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.redirects = '';  // follow all redirects
 		}
 
-		ctx.deleteApi = new Morebits.wiki.api("抓取删除令牌…", query, fnProcessDelete, ctx.statusElement, ctx.onDeleteFailure);
+		ctx.deleteApi = new Morebits.wiki.api("抓取刪除令牌…", query, fnProcessDelete, ctx.statusElement, ctx.onDeleteFailure);
 		ctx.deleteApi.setParent(this);
 		ctx.deleteApi.post();
 	};
@@ -2134,17 +2134,17 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		// if a non-admin tries to do this, don't bother
 		if (!Morebits.userIsInGroup('sysop')) {
-			ctx.statusElement.error("不能保护页面：只有管理员可进行该操作");
+			ctx.statusElement.error("不能保護頁面：只有管理員可進行該操作");
 			ctx.onProtectFailure(this);
 			return;
 		}
 		if (!ctx.protectEdit && !ctx.protectMove && !ctx.protectCreate) {
-			ctx.statusElement.error("内部错误：调用protect()前未设置编辑和/或移动和/或白纸保护！");
+			ctx.statusElement.error("內部錯誤：調用protect()前未設置編輯和/或移動和/或白紙保護！");
 			ctx.onProtectFailure(this);
 			return;
 		}
 		if (!ctx.editSummary) {
-			ctx.statusElement.error("内部错误：保护前未提供理由（使用setEditSummary函数）！");
+			ctx.statusElement.error("內部錯誤：保護前未提供理由（使用setEditSummary函數）！");
 			ctx.onProtectFailure(this);
 			return;
 		}
@@ -2161,7 +2161,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.redirects = '';  // follow all redirects
 		}
 
-		ctx.protectApi = new Morebits.wiki.api("抓取保护令牌…", query, fnProcessProtect, ctx.statusElement, ctx.onProtectFailure);
+		ctx.protectApi = new Morebits.wiki.api("抓取保護令牌…", query, fnProcessProtect, ctx.statusElement, ctx.onProtectFailure);
 		ctx.protectApi.setParent(this);
 		ctx.protectApi.post();
 	};
@@ -2175,17 +2175,17 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		// if a non-admin tries to do this, don't bother
 		if (!Morebits.userIsInGroup('sysop')) {
-			ctx.statusElement.error("不能应用FlaggedRevs设定：只有管理员能这么做");
+			ctx.statusElement.error("不能應用FlaggedRevs設定：只有管理員能這麼做");
 			ctx.onStabilizeFailure(this);
 			return;
 		}
 		if (!ctx.flaggedRevs) {
-			ctx.statusElement.error("内部错误：调用stabilize()前必须设置flaggedRevs！");
+			ctx.statusElement.error("內部錯誤：調用stabilize()前必須設置flaggedRevs！");
 			ctx.onStabilizeFailure(this);
 			return;
 		}
 		if (!ctx.editSummary) {
-			ctx.statusElement.error("内部错误：调用stabilize()前未提供理由（用setEditSummary函数）！");
+			ctx.statusElement.error("內部錯誤：調用stabilize()前未提供理由（用setEditSummary函數）！");
 			ctx.onStabilizeFailure(this);
 			return;
 		}
@@ -2243,13 +2243,13 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		ctx.editToken = $(xml).find('page').attr('edittoken');
 		if (!ctx.editToken) {
-			ctx.statusElement.error("未能抓取编辑令牌。");
+			ctx.statusElement.error("未能抓取編輯令牌。");
 			ctx.onLoadFailure(this);
 			return;
 		}
 		ctx.loadTime = $(xml).find('page').attr('starttimestamp');
 		if (!ctx.loadTime) {
-			ctx.statusElement.error("未能抓取起始时间戳。");
+			ctx.statusElement.error("未能抓取起始時間戳。");
 			ctx.onLoadFailure(this);
 			return;
 		}
@@ -2259,22 +2259,22 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		if (ctx.editMode === 'revert') {
 			ctx.revertCurID = $(xml).find('rev').attr('revid');
 			if (!ctx.revertCurID) {
-				ctx.statusElement.error("未能抓取当前修订版本ID。");
+				ctx.statusElement.error("未能抓取當前修訂版本ID。");
 				ctx.onLoadFailure(this);
 				return;
 			}
 			ctx.revertUser = $(xml).find('rev').attr('user');
 			if (!ctx.revertUser) {
 				if ($(xml).find('rev').attr('userhidden') === "") {  // username was RevDel'd or oversighted
-					ctx.revertUser = "<用户名已隐藏>";
+					ctx.revertUser = "<用戶名已隱藏>";
 				} else {
-					ctx.statusElement.error("未能抓取此修订版本的编辑者。");
+					ctx.statusElement.error("未能抓取此修訂版本的編輯者。");
 					ctx.onLoadFailure(this);
 					return;
 				}
 			}
 			// set revert edit summary
-			ctx.editSummary = "[[WP:UNDO|取消]]由 " + ctx.revertUser + " 所做出的修订 " + ctx.revertOldID + "：" + ctx.editSummary;
+			ctx.editSummary = "[[WP:UNDO|取消]]由 " + ctx.revertUser + " 所做出的修訂 " + ctx.revertOldID + "：" + ctx.editSummary;
 		}
 
 		ctx.pageLoaded = true;
@@ -2291,7 +2291,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		// check for invalid titles
 		if ( $(xml).find('page').attr('invalid') ) {
-			ctx.statusElement.error("标题不合法：" + ctx.pageName);
+			ctx.statusElement.error("標題不合法：" + ctx.pageName);
 			onFailure(this);
 			return false; // abort
 		}
@@ -2302,13 +2302,13 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 			// only notify user for redirects, not normalization
 			if ( $(xml).find('redirects').length > 0 ) {
-				Morebits.status.info("Info", "从 " + ctx.pageName + " 重定向到 " + resolvedName );
+				Morebits.status.info("Info", "從 " + ctx.pageName + " 重定向到 " + resolvedName );
 			}
 			ctx.pageName = resolvedName;  // always update in case of normalization
 		}
 		else {
 			// could be a circular redirect or other problem
-			ctx.statusElement.error("不能解释页面的重定向：" + ctx.pageName);
+			ctx.statusElement.error("不能解釋頁面的重定向：" + ctx.pageName);
 			onFailure(this);
 
 			// force error to stay on the screen
@@ -2347,22 +2347,22 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			var code = document.createElement('code');
 			code.style.fontFamily = "monospace";
 			code.appendChild(document.createTextNode(blacklist));
-			ctx.statusElement.error(['不能保存页面，因URL ', code, ' 在垃圾黑名单中。']);
+			ctx.statusElement.error(['不能保存頁面，因URL ', code, ' 在垃圾黑名單中。']);
 		} else if ( $(xml).find('captcha').length > 0 ) {
-			ctx.statusElement.error("不能保存页面，因服务器试图让您完成一个全自动区分计算机和人类的图灵测试。");
+			ctx.statusElement.error("不能保存頁面，因服務器試圖讓您完成一個全自動區分計算機和人類的圖靈測試。");
 		} else if ( $editNode.attr('code') === 'abusefilter-disallowed' ) {
-			ctx.statusElement.error('编辑被防滥用过滤器规则“' + $editNode.attr('info').substring(17) + '”阻止。');
+			ctx.statusElement.error('編輯被防濫用過濾器規則「' + $editNode.attr('info').substring(17) + '」阻止。');
 		} else if ( $editNode.attr('info').indexOf('Hit AbuseFilter:') === 0 ) {
 			var div = document.createElement('div');
 			div.className = "toccolours";
 			div.style.fontWeight = "normal";
 			div.style.color = "black";
 			div.innerHTML = $editNode.attr('warning');
-			ctx.statusElement.error([ '防滥用过滤器给出了如下警告：', div, '如果您仍希望做出该编辑，请重新提交。此警告不会再次出现。' ]);
+			ctx.statusElement.error([ '防濫用過濾器給出了如下警告：', div, '如果您仍希望做出該編輯，請重新提交。此警告不會再次出現。' ]);
 			// XXX provide the user with a way to automatically retry the action if they so choose -
 			// I can't see how to do this without creating a UI dependency on Morebits.wiki.page though -- TTO
 		} else {
-			ctx.statusElement.error("保存页面时由API得到未知错误");
+			ctx.statusElement.error("保存頁面時由API得到未知錯誤");
 		}
 
 		// force error to stay on the screen
@@ -2385,19 +2385,19 @@ Morebits.wiki.page = function(pageName, currentAction) {
 				titles: ctx.pageName  // redirects are already resolved
 			};
 
-			var purgeApi = new Morebits.wiki.api("检测到编辑冲突，更新服务器缓存", purgeQuery, null, ctx.statusElement);
+			var purgeApi = new Morebits.wiki.api("檢測到編輯衝突，更新服務器緩存", purgeQuery, null, ctx.statusElement);
 			var result = purgeApi.post( { async: false } );  // just wait for it, result is for debugging
 
 			--Morebits.wiki.numberOfActionsLeft;  // allow for normal completion if retry succeeds
 
-			ctx.statusElement.info("检测到编辑冲突，重试修改");
+			ctx.statusElement.info("檢測到編輯衝突，重試修改");
 			ctx.loadApi.post(); // reload the page and reapply the edit
 
 		// check for loss of edit token
 		// it's impractical to request a new token here, so invoke edit conflict logic when this happens
 		} else if ( errorCode === "notoken" && ctx.conflictRetries++ < ctx.maxConflictRetries ) {
 
-			ctx.statusElement.info("编辑令牌不可用，重试");
+			ctx.statusElement.info("編輯令牌不可用，重試");
 			--Morebits.wiki.numberOfActionsLeft;  // allow for normal completion if retry succeeds
 			ctx.loadApi.post(); // reload
 
@@ -2405,7 +2405,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		} else if ( errorCode === "undefined" && ctx.retries++ < ctx.maxRetries ) {
 
 			// the error might be transient, so try again
-			ctx.statusElement.info("保存失败，重试");
+			ctx.statusElement.info("保存失敗，重試");
 			--Morebits.wiki.numberOfActionsLeft;  // allow for normal completion if retry succeeds
 			ctx.saveApi.post(); // give it another go!
 
@@ -2414,9 +2414,9 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 			// non-admin attempting to edit a protected page - this gives a friendlier message than the default
 			if ( errorCode === "protectedpage" ) {
-				ctx.statusElement.error( "不能保存修改：页面被全保护" );
+				ctx.statusElement.error( "不能保存修改：頁面被全保護" );
 			} else if ( errorCode === "hookaborted" ) {
-				ctx.statusElement.error( "不能保存修改：被防滥用过滤器阻止" );
+				ctx.statusElement.error( "不能保存修改：被防濫用過濾器阻止" );
 			} else {
 				ctx.statusElement.error( "不能保存修改：" + ctx.saveApi.getErrorText() );
 			}
@@ -2436,7 +2436,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		ctx.creator = $(xml).find('rev').attr('user');
 		if (!ctx.creator) {
-			ctx.statusElement.error("不能获取页面创建者的名字");
+			ctx.statusElement.error("不能獲取頁面創建者的名字");
 			return;
 		}
 		ctx.onLookupCreatorSuccess(this);
@@ -2446,7 +2446,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		var xml = ctx.moveApi.getXML();
 
 		if ($(xml).find('page').attr('missing') === "") {
-			ctx.statusElement.error("不能移动页面，因其已不存在");
+			ctx.statusElement.error("不能移動頁面，因其已不存在");
 			ctx.onMoveFailure(this);
 			return;
 		}
@@ -2455,10 +2455,10 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		if (Morebits.userIsInGroup('sysop')) {
 			var editprot = $(xml).find('pr[type="edit"]');
 			if (editprot.length > 0 && editprot.attr('level') === 'sysop' && !ctx.suppressProtectWarning && 
-				!confirm('您即将移动全保护页面“' + ctx.pageName + '”' +
+				!confirm('您即將移動全保護頁面「' + ctx.pageName + '」' +
 				(editprot.attr('expiry') === 'infinity' ? '（永久）' : ('（到期：' + editprot.attr('expiry') + '）')) +
-				'。\n\n点击确定以确定，或点击取消以取消。')) {
-				ctx.statusElement.error("对全保护页面的移动已取消。");
+				'。\n\n點擊確定以確定，或點擊取消以取消。')) {
+				ctx.statusElement.error("對全保護頁面的移動已取消。");
 				ctx.onMoveFailure(this);
 				return;
 			}
@@ -2466,7 +2466,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		var moveToken = $(xml).find('page').attr('movetoken');
 		if (!moveToken) {
-			ctx.statusElement.error("不能抓取移动令牌。");
+			ctx.statusElement.error("不能抓取移動令牌。");
 			ctx.onMoveFailure(this);
 			return;
 		}
@@ -2491,7 +2491,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.watch = 'true';
 		}
 
-		ctx.moveProcessApi = new Morebits.wiki.api("移动页面…", query, ctx.onMoveSuccess, ctx.statusElement, ctx.onMoveFailure);
+		ctx.moveProcessApi = new Morebits.wiki.api("移動頁面…", query, ctx.onMoveSuccess, ctx.statusElement, ctx.onMoveFailure);
 		ctx.moveProcessApi.setParent(this);
 		ctx.moveProcessApi.post();
 	};
@@ -2500,7 +2500,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		var xml = ctx.deleteApi.getXML();
 
 		if ($(xml).find('page').attr('missing') === "") {
-			ctx.statusElement.error("不能删除页面，因其已不存在");
+			ctx.statusElement.error("不能刪除頁面，因其已不存在");
 			ctx.onDeleteFailure(this);
 			return;
 		}
@@ -2508,17 +2508,17 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		// extract protection info
 		var editprot = $(xml).find('pr[type="edit"]');
 		if (editprot.length > 0 && editprot.attr('level') === 'sysop' && !ctx.suppressProtectWarning && 
-			!confirm('您即将删除全保护页面“' + ctx.pageName + "”" +
+			!confirm('您即將刪除全保護頁面「' + ctx.pageName + "」" +
 			(editprot.attr('expiry') === 'infinity' ? '（永久）' : ('（到期 ' + editprot.attr('expiry') + '）')) +
-			'。\n\n点击确定以确定，或点击取消以取消。')) {
-			ctx.statusElement.error("对全保护页面的删除已取消。");
+			'。\n\n點擊確定以確定，或點擊取消以取消。')) {
+			ctx.statusElement.error("對全保護頁面的刪除已取消。");
 			ctx.onDeleteFailure(this);
 			return;
 		}
 
 		var deleteToken = $(xml).find('page').attr('deletetoken');
 		if (!deleteToken) {
-			ctx.statusElement.error("不能抓取删除令牌。");
+			ctx.statusElement.error("不能抓取刪除令牌。");
 			ctx.onDeleteFailure(this);
 			return;
 		}
@@ -2533,7 +2533,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.watch = 'true';
 		}
 
-		ctx.deleteProcessApi = new Morebits.wiki.api("删除页面…", query, ctx.onDeleteSuccess, ctx.statusElement, fnProcessDeleteError);
+		ctx.deleteProcessApi = new Morebits.wiki.api("刪除頁面…", query, ctx.onDeleteSuccess, ctx.statusElement, fnProcessDeleteError);
 		ctx.deleteProcessApi.setParent(this);
 		ctx.deleteProcessApi.post();
 	};
@@ -2546,14 +2546,14 @@ Morebits.wiki.page = function(pageName, currentAction) {
 		// check for "Database query error"
 		if ( errorCode === "internal_api_error_DBQueryError" && ctx.retries++ < ctx.maxRetries ) {
 
-			ctx.statusElement.info("数据库查询错误，重试");
+			ctx.statusElement.info("數據庫查詢錯誤，重試");
 			--Morebits.wiki.numberOfActionsLeft;  // allow for normal completion if retry succeeds
 			ctx.deleteProcessApi.post(); // give it another go!
 
 		// hard error, give up
 		} else {
 
-			ctx.statusElement.error( "不能删除页面：" + ctx.deleteProcessApi.getErrorText() );
+			ctx.statusElement.error( "不能刪除頁面：" + ctx.deleteProcessApi.getErrorText() );
 			if (ctx.onDeleteFailure) {
 				ctx.onDeleteFailure.call(this, ctx.deleteProcessApi);  // invoke callback
 			}
@@ -2565,12 +2565,12 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		var missing = ($(xml).find('page').attr('missing') === "");
 		if (((ctx.protectEdit || ctx.protectMove) && missing)) {
-			ctx.statusElement.error("不能保护页面，因其已不存在");
+			ctx.statusElement.error("不能保護頁面，因其已不存在");
 			ctx.onProtectFailure(this);
 			return;
 		}
 		if (ctx.protectCreate && !missing) {
-			ctx.statusElement.error("不能白纸保护页面，因其已存在");
+			ctx.statusElement.error("不能白紙保護頁面，因其已存在");
 			ctx.onProtectFailure(this);
 			return;
 		}
@@ -2579,7 +2579,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		var protectToken = $(xml).find('page').attr('protecttoken');
 		if (!protectToken) {
-			ctx.statusElement.error("不能抓取保护令牌。");
+			ctx.statusElement.error("不能抓取保護令牌。");
 			ctx.onProtectFailure(this);
 			return;
 		}
@@ -2632,7 +2632,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.watch = 'true';
 		}
 
-		ctx.protectProcessApi = new Morebits.wiki.api("保护页面…", query, ctx.onProtectSuccess, ctx.statusElement, ctx.onProtectFailure);
+		ctx.protectProcessApi = new Morebits.wiki.api("保護頁面…", query, ctx.onProtectSuccess, ctx.statusElement, ctx.onProtectFailure);
 		ctx.protectProcessApi.setParent(this);
 		ctx.protectProcessApi.post();
 	};
@@ -2642,7 +2642,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 
 		var missing = ($(xml).find('page').attr('missing') === "");
 		if (missing) {
-			ctx.statusElement.error("不能保护页面，因其已不存在");
+			ctx.statusElement.error("不能保護頁面，因其已不存在");
 			ctx.onStabilizeFailure(this);
 			return;
 		}
@@ -2666,7 +2666,7 @@ Morebits.wiki.page = function(pageName, currentAction) {
 			query.watch = 'true';
 		}
 
-		ctx.stabilizeProcessApi = new Morebits.wiki.api("配置stabilization设定…", query, ctx.onStabilizeSuccess, ctx.statusElement, ctx.onStabilizeFailure);
+		ctx.stabilizeProcessApi = new Morebits.wiki.api("配置stabilization設定…", query, ctx.onStabilizeSuccess, ctx.statusElement, ctx.onStabilizeFailure);
 		ctx.stabilizeProcessApi.setParent(this);
 		ctx.stabilizeProcessApi.post();
 	};
@@ -2718,7 +2718,7 @@ Morebits.wiki.preview = function(previewbox) {
 			text: wikitext,
 			title: mw.config.get('wgPageName')
 		};
-		var renderApi = new Morebits.wiki.api("载入中…", query, fnRenderSuccess, new Morebits.status("预览"));
+		var renderApi = new Morebits.wiki.api("載入中…", query, fnRenderSuccess, new Morebits.status("預覽"));
 		renderApi.post();
 	};
 
@@ -2726,7 +2726,7 @@ Morebits.wiki.preview = function(previewbox) {
 		var xml = apiobj.getXML();
 		var html = $(xml).find('text').text();
 		if (!html) {
-			apiobj.statelem.error("载入预览失败，或模板被清空");
+			apiobj.statelem.error("載入預覽失敗，或模板被清空");
 			return;
 		}
 		previewbox.innerHTML = html;
@@ -3072,7 +3072,7 @@ Morebits.status = function Status( text, stat, type ) {
 
 Morebits.status.init = function( root ) {
 	if( !( root instanceof Element ) ) {
-		throw new Error( '对象不是一个Element' );
+		throw new Error( '對像不是一個Element' );
 	}
 	while( root.hasChildNodes() ) {
 		root.removeChild( root.firstChild );
@@ -3087,7 +3087,7 @@ Morebits.status.onError = function( handler ) {
 	if ( $.isFunction( handler ) ) {
 		Morebits.status.errorEvent = handler;
 	} else {
-		throw "Morebits.status.onError：处理程序不是一个函数";
+		throw "Morebits.status.onError：處理程序不是一個函數";
 	}
 };
 
@@ -3221,7 +3221,7 @@ Morebits.simpleWindow = function SimpleWindow( width, height ) {
 
 	$(this.content).dialog({
 			autoOpen: false,
-			buttons: { "占位按钮": function() {} },
+			buttons: { "佔位按鈕": function() {} },
 			dialogClass: 'morebits-dialog',
 			width: Math.min(parseInt(window.innerWidth, 10), parseInt(width ? width : 800, 10)),
 			// give jQuery the given height value (which represents the anticipated height of the dialog) here, so

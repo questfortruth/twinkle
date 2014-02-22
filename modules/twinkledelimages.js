@@ -19,23 +19,23 @@ Twinkle.delimages = function twinkledeli() {
 		return;
 	}
 	if( Morebits.userIsInGroup( 'sysop' ) ) {
-		Twinkle.addPortletLink( Twinkle.delimages.callback, "批图", "tw-deli", "批量删除此页内的文件" );
+		Twinkle.addPortletLink( Twinkle.delimages.callback, "批圖", "tw-deli", "批量刪除此頁內的文件" );
 	}
 };
 
 Twinkle.delimages.unlinkCache = {};
 Twinkle.delimages.callback = function twinkledeliCallback() {
 	var Window = new Morebits.simpleWindow( 800, 400 );
-	Window.setTitle( "批量文件删除" );
+	Window.setTitle( "批量文件刪除" );
 	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle帮助", "WP:TW/DOC#delimages" );
+	Window.addFooterLink( "Twinkle幫助", "WP:TW/DOC#delimages" );
 
 	var form = new Morebits.quickForm( Twinkle.delimages.callback.evaluate );
 	form.append( {
 		type: 'checkbox',
 		list: [
 			{
-				label: '删除文件',
+				label: '刪除文件',
 				name: 'delete_image',
 				value: 'delete',
 				checked: true
@@ -84,9 +84,9 @@ Twinkle.delimages.callback = function twinkledeliCallback() {
 			var image = $self.attr('title');
 			var user = $self.find('imageinfo ii').attr('user');
 			var last_edit = $self.find('revisions rev').attr('user');
-			var disputed = $self.find('categories cl[title="Category:快速删除候选"]').size() > 0;
+			var disputed = $self.find('categories cl[title="Category:快速刪除候選"]').size() > 0;
 			list.push( {
-				'label': image + '—作者：' + user + '，上次编辑：' + last_edit + ( disputed ? '（争议' : '' ),
+				'label': image + '—作者：' + user + '，上次編輯：' + last_edit + ( disputed ? '（爭議' : '' ),
 				'value': image,
 				'checked': !disputed
 			});
@@ -143,7 +143,7 @@ Twinkle.delimages.callback.evaluate = function twinkledeliCallbackEvaluate(event
 					'action': 'query',
 					'titles': image
 				};
-				var wikipedia_api = new Morebits.wiki.api( '检查文件 ' + image + ' 是否存在', query, Twinkle.delimages.callbacks.main );
+				var wikipedia_api = new Morebits.wiki.api( '檢查文件 ' + image + ' 是否存在', query, Twinkle.delimages.callbacks.main );
 				wikipedia_api.params = { image:image, reason:reason, unlink_image:unlink_image, delete_image:delete_image };
 				wikipedia_api.post();
 			}
@@ -167,7 +167,7 @@ Twinkle.delimages.callbacks = {
 		var exists = $data.find('pages page[title="'+self.params.image.replace( /"/g, '\\"')+'"]:not([missing])').size() > 0;
 
 		if( ! exists ) {
-			self.statelem.error( "文件不存在，可能已被删除" );
+			self.statelem.error( "文件不存在，可能已被刪除" );
 			return;
 		}
 		if( self.params.unlink_image ) {
@@ -177,14 +177,14 @@ Twinkle.delimages.callbacks = {
 				'iutitle': self.params.image,
 				'iulimit': Morebits.userIsInGroup( 'sysop' ) ? 5000 : 500 // 500 is max for normal users, 5000 for bots and sysops
 			};
-			var wikipedia_api = new Morebits.wiki.api( '抓取文件链接', query, Twinkle.delimages.callbacks.unlinkImageInstancesMain );
+			var wikipedia_api = new Morebits.wiki.api( '抓取文件連結', query, Twinkle.delimages.callbacks.unlinkImageInstancesMain );
 			wikipedia_api.params = self.params;
 			wikipedia_api.post();
 		}
 		if( self.params.delete_image ) {
 
-			var imagepage = new Morebits.wiki.page( self.params.image, '删除文件');
-			imagepage.setEditSummary( "文件被删除：" + self.params.reason + Twinkle.getPref('deletionSummaryAd'));
+			var imagepage = new Morebits.wiki.page( self.params.image, '刪除文件');
+			imagepage.setEditSummary( "文件被刪除：" + self.params.reason + Twinkle.getPref('deletionSummaryAd'));
 			imagepage.deletePage();
 		}
 	},
@@ -214,15 +214,15 @@ Twinkle.delimages.callbacks = {
 		var image = params.image.replace( /^(?:Image|File|文件):/, '' );
 		var old_text = self.getPageText();
 		var wikiPage = new Morebits.wikitext.page( old_text );
-		wikiPage.commentOutImage( image , '注释此文件因其已被删除' );
+		wikiPage.commentOutImage( image , '註釋此文件因其已被刪除' );
 		var text = wikiPage.getText();
 
 		if( text === old_text ) {
-			statelem.error( '取消 ' + image + ' 在 ' + self.getPageName() + ' 上的使用失败' );
+			statelem.error( '取消 ' + image + ' 在 ' + self.getPageName() + ' 上的使用失敗' );
 			return;
 		}
 		self.setPageText(text);
-		self.setEditSummary('移除文件 ' + image + " 因其已被删除，理由为“" + params.reason + "”。" + Twinkle.getPref('deletionSummaryAd'));
+		self.setEditSummary('移除文件 ' + image + " 因其已被刪除，理由為「" + params.reason + "」。" + Twinkle.getPref('deletionSummaryAd'));
 		self.setCreateOption('nocreate');
 		self.save();
 	}

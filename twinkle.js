@@ -2,18 +2,18 @@
  * vim: set noet sts=0 sw=8:
  * +-------------------------------------------------------------------------+
  * |                       === 警告：全局小工具文件 ===                      |
- * |                      对此文件的修改会影响许多用户。                     |
- * |                           修改前请联系维护者。                          |
+ * |                      對此文件的修改會影響許多用戶。                     |
+ * |                           修改前請聯繫維護者。                          |
  * +-------------------------------------------------------------------------+
  *
- * 从Github导入[https://github.com/jimmyxu/twinkle]
+ * 從Github導入[https://github.com/questfortruth/twinkle]
  *
  * ----------
  *
- * 这是Twinkle，新手、管理员及他们之间的用户的
- * 好搭档。请参见[[WP:TW]]以获取更多信息。
+ * 這是Twinkle，新手、管理員及他們之間的用戶的
+ * 好搭檔。請參見[[WP:TW]]以獲取更多信息。
  *
- * 维护者：~~~
+ * 維護者：~~~
  */
 
 //<nowiki>
@@ -75,7 +75,7 @@ Twinkle.defaultConfig.twinkle = {
 	speedyWindowHeight: 500,
 	speedyWindowWidth: 800,
 	logSpeedyNominations: false,
-	speedyLogPageName: "CSD日志",
+	speedyLogPageName: "CSD日誌",
 	noLogOnSpeedyNomination: [ "o1" ],
 	enlargeG11Input: true,
 	 // Unlink
@@ -136,8 +136,8 @@ Twinkle.defaultConfig.friendly = {
 	 // Talkback
 	markTalkbackAsMinor: true,
 	insertTalkbackSignature: true,  // always sign talkback templates
-	talkbackHeading: "回复通告",
-	mailHeading: "您有新邮件！",
+	talkbackHeading: "回覆通告",
+	mailHeading: "您有新郵件！",
 	 // Shared
 	markSharedIPAsMinor: true
 };
@@ -280,7 +280,7 @@ Twinkle.addPortlet = function( navigation, id, text, type, nextnodeid )
 			e.preventDefault();
 
 			if ( !Twinkle.userAuthorized ) {
-				alert("抱歉，您需达自动确认后方可使用Twinkle。");
+				alert("抱歉，您需達自動確認後方可使用Twinkle。");
 			}
 		});
 
@@ -337,7 +337,7 @@ $.ajax({
 	url: scriptpathbefore + "User:" + encodeURIComponent( mw.config.get("wgUserName")) + "/twinkleoptions.js" + scriptpathafter,
 	dataType: "text"
 })
-	.fail(function () {	mw.util.jsMessage( "未能加载twinkleoptions.js" ); })
+	.fail(function () {	mw.util.jsMessage( "未能加載twinkleoptions.js" ); })
 	.done(function ( optionsText ) {
 
 		// Quick pass if user has no options

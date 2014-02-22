@@ -21,14 +21,14 @@ Twinkle.batchundelete = function twinklebatchundelete() {
 		return;
 	}
 	if( Morebits.userIsInGroup( 'sysop' ) ) {
-		Twinkle.addPortletLink( Twinkle.batchundelete.callback, "批复", "tw-batch-undel", "反删除页面" );
+		Twinkle.addPortletLink( Twinkle.batchundelete.callback, "批復", "tw-batch-undel", "反刪除頁面" );
 	}
 };
 
 Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
 	var Window = new Morebits.simpleWindow( 800, 400 );
 	Window.setScriptName("Twinkle");
-	Window.setTitle("批量反删除");
+	Window.setTitle("批量反刪除");
 	var form = new Morebits.quickForm( Twinkle.batchundelete.callback.evaluate );
 	form.append( {
 			type: 'textarea',
@@ -42,7 +42,7 @@ Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
 		'titles': mw.config.get("wgPageName"),
 		'gpllimit' : Twinkle.getPref('batchMax') // the max for sysops
 	};
-	var wikipedia_api = new Morebits.wiki.api( '抓取页面', query, function( self ) {
+	var wikipedia_api = new Morebits.wiki.api( '抓取頁面', query, function( self ) {
 			var xmlDoc = self.responseXML;
 			var snapshot = xmlDoc.evaluate('//page[@missing]', xmlDoc, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null );
 			var list = [];
@@ -74,8 +74,8 @@ Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
 Twinkle.batchundelete.currentUndeleteCounter = 0;
 Twinkle.batchundelete.currentundeletor = 0;
 Twinkle.batchundelete.callback.evaluate = function( event ) {
-	Morebits.wiki.actionCompleted.notice = '状态';
-	Morebits.wiki.actionCompleted.postfix = '反删除已完成';
+	Morebits.wiki.actionCompleted.notice = '狀態';
+	Morebits.wiki.actionCompleted.postfix = '反刪除已完成';
 
 	var pages = event.target.getChecked( 'pages' );
 	var reason = event.target.reason.value;
@@ -87,7 +87,7 @@ Twinkle.batchundelete.callback.evaluate = function( event ) {
 	Morebits.status.init( event.target );
 
 	if( !pages ) {
-		Morebits.status.error( '错误', '没什么要反删除的，取消操作' );
+		Morebits.status.error( '錯誤', '沒什麼要反刪除的，取消操作' );
 		return;
 	}
 
@@ -114,7 +114,7 @@ Twinkle.batchundelete.callbacks = {
 					'action': 'undelete',
 					'reason': reason + Twinkle.getPref('deletionSummaryAd')
 				};
-				var wikipedia_api = new Morebits.wiki.api( "反删除" + title, query, function( self ) { 
+				var wikipedia_api = new Morebits.wiki.api( "反刪除" + title, query, function( self ) { 
 						--Twinkle.batchundelete.currentUndeleteCounter;
 						var link = document.createElement( 'a' );
 						link.setAttribute( 'href', mw.util.getUrl(self.itsTitle) );

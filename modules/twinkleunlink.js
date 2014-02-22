@@ -19,7 +19,7 @@ Twinkle.unlink = function twinkleunlink() {
 		return;
 	}
 	if( Morebits.userIsInGroup( 'sysop' ) ) {
-		Twinkle.addPortletLink( Twinkle.unlink.callback, "链入", "tw-unlink", "取消到本页的链接" );
+		Twinkle.addPortletLink( Twinkle.unlink.callback, "連入", "tw-unlink", "取消到本頁的連結" );
 	}
 };
 
@@ -39,9 +39,9 @@ Twinkle.unlink.getChecked2 = function twinkleunlinkGetChecked2( nodelist ) {
 // the parameter is used when invoking unlink from admin speedy
 Twinkle.unlink.callback = function(presetReason) {
 	var Window = new Morebits.simpleWindow( 800, 400 );
-	Window.setTitle( "取消链入" + (mw.config.get('wgNamespaceNumber') === 6 ? "和文件使用" : "") );
+	Window.setTitle( "取消連入" + (mw.config.get('wgNamespaceNumber') === 6 ? "和文件使用" : "") );
 	Window.setScriptName( "Twinkle" );
-	Window.addFooterLink( "Twinkle帮助", "WP:TW/DOC#unlink" );
+	Window.addFooterLink( "Twinkle幫助", "WP:TW/DOC#unlink" );
 
 	var form = new Morebits.quickForm( Twinkle.unlink.callback.evaluate );
 	form.append( {
@@ -73,14 +73,14 @@ Twinkle.unlink.callback = function(presetReason) {
 			'blnamespace': Twinkle.getPref('unlinkNamespaces')
 		};
 	}
-	var wikipedia_api = new Morebits.wiki.api( '抓取链入', query, Twinkle.unlink.callbacks.display.backlinks );
+	var wikipedia_api = new Morebits.wiki.api( '抓取連入', query, Twinkle.unlink.callbacks.display.backlinks );
 	wikipedia_api.params = { form: form, Window: Window, image: mw.config.get('wgNamespaceNumber') === 6 };
 	wikipedia_api.post();
 
 	var root = document.createElement( 'div' );
 	root.style.padding = '15px';  // just so it doesn't look broken
 	Morebits.status.init( root );
-	wikipedia_api.statelem.status( "载入中…" );
+	wikipedia_api.statelem.status( "載入中…" );
 	Window.setContent( root );
 	Window.display();
 };
@@ -90,7 +90,7 @@ Twinkle.unlink.callback.evaluate = function twinkleunlinkCallbackEvaluate(event)
 	Twinkle.unlink.imageusagedone = 0;
 
 	function processunlink(pages, imageusage) {
-		var statusIndicator = new Morebits.status((imageusage ? '取消文件使用' : '取消链入'), '0%');
+		var statusIndicator = new Morebits.status((imageusage ? '取消文件使用' : '取消連入'), '0%');
 		var total = pages.length;  // removing doubling of this number - no apparent reason for it
 
 		Morebits.wiki.addCheckpoint();
@@ -106,7 +106,7 @@ Twinkle.unlink.callback.evaluate = function twinkleunlinkCallbackEvaluate(event)
 		for (var i = 0; i < pages.length; ++i)
 		{
 			var myparams = $.extend({}, params);
-			var articlepage = new Morebits.wiki.page(pages[i], '在条目：“' + pages[i] + '”中');
+			var articlepage = new Morebits.wiki.page(pages[i], '在條目：「' + pages[i] + '」中');
 			articlepage.setCallbackParameters(myparams);
 			articlepage.setBotEdit(true);  // unlink considered a floody operation
 			articlepage.load(imageusage ? Twinkle.unlink.callbacks.unlinkImageInstances : Twinkle.unlink.callbacks.unlinkBacklinks);
@@ -115,7 +115,7 @@ Twinkle.unlink.callback.evaluate = function twinkleunlinkCallbackEvaluate(event)
 
 	var reason = event.target.reason.value;
 	if (!reason) {
-		alert("您必须指定取消链入的理由。");
+		alert("您必須指定取消連入的理由。");
 		return;
 	}
 
@@ -169,13 +169,13 @@ Twinkle.unlink.callbacks = {
 					});
 					apiobj.params.form.append( {
 						type: 'div',
-						label: "已选择的名字空间：" + namespaces.join(', '),
-						tooltip: "您可在Twinkle属性中更改这个，请参见[[WP:TWPREFS]]"
+						label: "已選擇的名字空間：" + namespaces.join(', '),
+						tooltip: "您可在Twinkle屬性中更改這個，請參見[[WP:TWPREFS]]"
 					});
 					if ($(xmlDoc).find('query-continue').length) {
 						apiobj.params.form.append( {
 							type: 'div',
-							label: "显示头 " + list.length.toString() + " 个文件使用。"
+							label: "顯示頭 " + list.length.toString() + " 個文件使用。"
 						});
 					}
 					apiobj.params.form.append( {
@@ -201,13 +201,13 @@ Twinkle.unlink.callbacks = {
 				});
 				apiobj.params.form.append( {
 					type: 'div',
-					label: "已选择的名字空间：" + namespaces.join(', '),
-					tooltip: "您可在Twinkle属性中更改这个，请参见[[WP:TWPREFS]]"
+					label: "已選擇的名字空間：" + namespaces.join(', '),
+					tooltip: "您可在Twinkle屬性中更改這個，請參見[[WP:TWPREFS]]"
 				});
 				if ($(xmlDoc).find('query-continue').length) {
 					apiobj.params.form.append( {
 						type: 'div',
-						label: "显示头 " + list.length.toString() + " 个链入。"
+						label: "顯示頭 " + list.length.toString() + " 個連入。"
 					});
 				}
 				apiobj.params.form.append( {
@@ -219,7 +219,7 @@ Twinkle.unlink.callbacks = {
 			}
 			else
 			{
-				apiobj.params.form.append( { type: 'div', label: '未找到链入。' } );
+				apiobj.params.form.append( { type: 'div', label: '未找到連入。' } );
 			}
 
 			if (havecontent) {
@@ -246,7 +246,7 @@ Twinkle.unlink.callbacks = {
 		}
 
 		pageobj.setPageText(text);
-		pageobj.setEditSummary("取消到页面“" + Morebits.pageNameNorm + "”的链接：" + params.reason + "。" + Twinkle.getPref('summaryAd'));
+		pageobj.setEditSummary("取消到頁面「" + Morebits.pageNameNorm + "」的連結：" + params.reason + "。" + Twinkle.getPref('summaryAd'));
 		pageobj.setCreateOption('nocreate');
 		pageobj.save(Twinkle.unlink.callbacks.success);
 	},
@@ -256,7 +256,7 @@ Twinkle.unlink.callbacks = {
 		var params = pageobj.getCallbackParameters();
 
 		var wikiPage = new Morebits.wikitext.page(text);
-		wikiPage.commentOutImage(mw.config.get('wgTitle'), '注释出');
+		wikiPage.commentOutImage(mw.config.get('wgTitle'), '註釋出');
 		text = wikiPage.getText();
 		if (text === oldtext) {
 			// Nothing to do, return
@@ -266,7 +266,7 @@ Twinkle.unlink.callbacks = {
 		}
 
 		pageobj.setPageText(text);
-		pageobj.setEditSummary("注释出文件“" + Morebits.pageNameNorm + "：" + params.reason + "。" + Twinkle.getPref('summaryAd'));
+		pageobj.setEditSummary("註釋出文件「" + Morebits.pageNameNorm + "：" + params.reason + "。" + Twinkle.getPref('summaryAd'));
 		pageobj.setCreateOption('nocreate');
 		pageobj.save(Twinkle.unlink.callbacks.success);
 	},
